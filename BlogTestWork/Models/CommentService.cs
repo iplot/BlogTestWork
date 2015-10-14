@@ -21,26 +21,26 @@ namespace BlogTestWork.Models
         {
             try
             {
-                var postSet = getDbSet<Post>();
+                var commentSet = getDbSet<Comment>();
 
                 if (search == "")
                 {
-                    return postSet.Select(x => new CommentVM
+                    return commentSet.Select(x => new CommentVM
                     {
                         Date = x.Date.ToString(),
                         Text = x.Text,
                         UserName = x.User.UserName
-                    }).OrderByDescending(x => x.Date);
+                    }).OrderBy(x => x.Date);
                 }
                 else
                 {
-                    return postSet
+                    return commentSet
                                 .Where(x => x.Text.Contains(search) || x.User.UserName == search)
                                 .Select(x => new CommentVM 
                                 {
                                     Date = x.Date.ToString(), Text = x.Text, UserName = x.User.UserName
                                 })
-                                .OrderByDescending(x => x.Date);
+                                .OrderBy(x => x.Date);
                 }
             }
             catch (Exception ex)
@@ -51,7 +51,7 @@ namespace BlogTestWork.Models
 
         public void AddNewComment(NewCommentVM comment)
         {
-            Post postEntity = new Post {Date = comment.Date, Text = comment.Text};
+            Comment commentEntity = new Comment {Date = comment.Date, Text = comment.Text};
 
             try
             {
@@ -60,16 +60,16 @@ namespace BlogTestWork.Models
                 if (userSet.Any(x => x.UserName == comment.UserName && x.Gender == comment.Gender))
                 {
                     int userId = userSet.Where(x => x.UserName == comment.UserName).Select(x => x.Id).First();
-                    postEntity.UserId = userId;
+                    commentEntity.UserId = userId;
 
-                    getDbSet<Post>().Add(postEntity);
+                    getDbSet<Comment>().Add(commentEntity);
                 }
                 else
                 {
                     User userEntity = new User {Gender = comment.Gender, UserName = comment.UserName};
-                    postEntity.User = userEntity;
+                    commentEntity.User = userEntity;
 
-                    getDbSet<Post>().Add(postEntity);
+                    getDbSet<Comment>().Add(commentEntity);
                 }
 
                 _context.SaveChanges();

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogTestWork.Models.DbModels
 {
-    public class Post
+    public class Comment
     {
         [Key]
         public int Id { get; set; }

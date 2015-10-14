@@ -51,7 +51,7 @@ namespace BlogTestWork.Controllers
                     throw new Exception();
                 }
 
-//                _commentService.AddNewComment(comment);
+                _commentService.AddNewComment(comment);
 
                 return GetComments();
             }

@@ -105,6 +105,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Frontend\app.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\Frontend\global.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Web.config" />
@@ -118,7 +119,7 @@
     <Compile Include="Models\CommentService.cs" />
     <Compile Include="Models\DbModels\BlogContext.cs" />
     <Compile Include="Models\DbModels\Gender.cs" />
-    <Compile Include="Models\DbModels\Post.cs" />
+    <Compile Include="Models\DbModels\Comment.cs" />
     <Compile Include="Models\DbModels\User.cs" />
     <Compile Include="Models\ViewModels\NewCommentVM.cs" />
     <Compile Include="Models\ViewModels\CommentVM.cs" />
