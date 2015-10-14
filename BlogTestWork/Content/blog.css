@@ -1,0 +1,29 @@
+﻿.oneline {
+    display: inline-block;
+}
+
+.date-group {
+    width: 150px;
+}
+
+.gender-group {
+    width: 132px;
+}
+
+#text {
+    resize: none;
+    height: 150px;
+}
+
+#postBtn {
+    float: right; 
+    margin-top: 5px;
+}
+
+.search-group {
+    /*float: right;*/
+}
+
+#search {
+    width: 200px;
+}

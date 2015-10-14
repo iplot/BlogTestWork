@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div style="border: solid 2px yellow" class="col-md-5">
+            <!--User area-->
+            <div class="row">
+                <div style="border: solid 2px blueviolet" class="col-md-4">
+                    <img src="https://www.google.ru/images/branding/googleg/1x/googleg_standard_color_128dp.png" width="100" height="100"/>
+                </div>
+                <div style="border: solid 2px red" class="col-md-8">
+                        <div>
+                            <label for="userName">User Name</label>
+                            <input id="userName" name="userName" type="text" class="form-control" required/>
+                        </div>
+                        <div class="form-group">
+                            <div class="date-group oneline">
+                                <label for="date">Date</label>
+                                <input name="date" id="date" type="date" class="form-control" required/>
+                            </div>
+                            <div class="gender-group oneline">
+                                <label for="gender">Gender</label>
+                                <select name="gender" id="gender" class="form-control">
+                                    <option value="0">None</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <textarea class="form-control" name="text" id="text" required></textarea>
+                        <button id="postBtn" class="btn btn-primary">Post</button>
+                </div>
+            </div>
+        </div>
+        <!--Blog list-->
+        <div class="col-md-7" style="border: solid 2px green;">
+            <!--Head-->
+            <div>
+                <div class="oneline">
+                    <h3 class="oneline">Recent Comments</h3>
+                    <div id="recentComments" class="oneline">3</div>
+                </div>
+                <div class="search-group oneline">
+                    <input type="text" name="search" id="search" class="form-control oneline"/>
+                    <button id="searchBtn" class="btn btn-success oneline">Update</button>
+                </div>
+                <hr/>
+            </div>
+            <!--Posts go here-->
+            <div id="postArea">
+                
+            </div>
+        </div>
+    </div>
+</div>
