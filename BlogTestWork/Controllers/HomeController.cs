@@ -14,11 +14,11 @@ namespace BlogTestWork.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly CommentService _commentService;
+        private readonly ICommentService _commentService;
 
-        public HomeController()
+        public HomeController(ICommentService service)
         {
-            _commentService = new CommentService(new BlogContext());
+            _commentService = service;
         }
 
         // GET: Home

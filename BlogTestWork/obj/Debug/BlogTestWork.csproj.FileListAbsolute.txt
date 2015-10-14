@@ -22,3 +22,10 @@ D:\GitRepos\BlogTestWork\BlogTestWork\obj\Debug\BlogTestWork.dll
 D:\GitRepos\BlogTestWork\BlogTestWork\obj\Debug\BlogTestWork.pdb
 D:\GitRepos\BlogTestWork\BlogTestWork\bin\Newtonsoft.Json.dll
 D:\GitRepos\BlogTestWork\BlogTestWork\bin\Newtonsoft.Json.xml
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Ninject.dll
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Ninject.Web.Common.dll
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Ninject.Web.Mvc.dll
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\WebActivatorEx.dll
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Ninject.xml
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Ninject.Web.Common.xml
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Ninject.Web.Mvc.xml

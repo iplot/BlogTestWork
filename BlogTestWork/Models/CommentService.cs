@@ -8,13 +8,13 @@ using BlogTestWork.Models.ViewModels;
 
 namespace BlogTestWork.Models
 {
-    public class CommentService
+    public class CommentService : ICommentService
     {
         private readonly DbContext _context;
 
-        public CommentService(DbContext context)
+        public CommentService()
         {
-            _context = context;
+            _context = new BlogContext();
         }
 
         public IEnumerable<CommentVM> SearchComments(string search)
@@ -110,6 +110,11 @@ namespace BlogTestWork.Models
         private DbSet<T> getDbSet<T> () where T : class
         {
             return _context.Set<T>();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
