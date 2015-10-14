@@ -12,7 +12,6 @@ namespace BlogTestWork.Models.DbModels
         [MaxLength(300)]
         public string Text { get; set; }
 
-        [Column("Date", TypeName = "date")]
         [Required]
         public DateTime Date { get; set; }
 

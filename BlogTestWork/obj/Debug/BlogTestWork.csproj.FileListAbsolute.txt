@@ -20,3 +20,5 @@ D:\GitRepos\BlogTestWork\BlogTestWork\bin\System.Web.Mvc.xml
 D:\GitRepos\BlogTestWork\BlogTestWork\obj\Debug\BlogTestWork.csprojResolveAssemblyReference.cache
 D:\GitRepos\BlogTestWork\BlogTestWork\obj\Debug\BlogTestWork.dll
 D:\GitRepos\BlogTestWork\BlogTestWork\obj\Debug\BlogTestWork.pdb
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Newtonsoft.Json.dll
+D:\GitRepos\BlogTestWork\BlogTestWork\bin\Newtonsoft.Json.xml

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,6 +14,10 @@ namespace BlogTestWork.Models.DbModels
         [MaxLength(100)]
         [Required]
         public string UserName { get; set; }
+
+        [Column("Date", TypeName = "date")]
+        [Required]
+        public DateTime Date { get; set; }
 
         public Gender Gender { get; set; }
 

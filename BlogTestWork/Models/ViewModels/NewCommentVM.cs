@@ -13,11 +13,13 @@ namespace BlogTestWork.Models.ViewModels
         public string UserName { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime UserDate { get; set; }
 
         public Gender Gender { get; set; }
 
         [Required]
         public string Text { get; set; }
+
+        public DateTime? LastDate { get; set; }
     }
 }

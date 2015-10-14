@@ -1,4 +1,6 @@
-﻿(function() {
+﻿(function () {
+    var lastDate = null;
+
     $(document).ready(function() {
         $('#postBtn').on('click', postNewComment);
         $('#searchBtn').on('click', updateComments);
@@ -9,18 +11,19 @@
     function postNewComment() {
         var comment = {
             'userName': $('#userName').val(),
-            'date': $('#date').val(),
+            'userDate': $('#date').val(),
             'gender': $('#gender').val(),
-            'text': $('#text').val()
+            'text': $('#text').val(),
+            'lastDate': lastDate
         }
 
         $.ajax({
             url: 'Home/AddComment',
-            data: comment,
+            data: { obj: JSON.stringify(comment) },
             dataType: 'json',
             type: 'POST',
             success: function(data) {
-                viewComments(data);
+                viewRecentComments(data);
             },
             error: function(err) {
                 var a = err;
@@ -29,22 +32,51 @@
     }
 
     function updateComments() {
-        var search = $('#search').val();
+        var search = $('#search').val(),
+            urlString,
+            param;
+
+        if (search == '') {
+            urlString = 'Home/GetRecentComments';
+            param = { date: JSON.stringify({ 'LastDate': lastDate }) };
+        } else {
+            urlString = 'Home/SearchComments';
+            param = { 'search': search };
+        }
 
         $.ajax({
-            url: 'Home/GetComments',
-            data: { 'search': search },
+            url: urlString,
+            data: param,
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                viewComments(data);
+                if (urlString === 'Home/GetRecentComments') {
+                    viewRecentComments(data);
+                } else {
+                    $('#postArea').empty();
+                    viewComments(data);
+                    lastDate = null;
+                }
             }
         });
     }
 
+    function viewRecentComments(data) {
+        var recentCounter = $('#recentComments');
+
+        if (lastDate === null) {
+            $('#postArea').empty();
+        }
+
+        viewComments(data.Comments);
+
+        recentCounter.text(data.Comments.length);
+        lastDate = new Date(data.LastDateTime);
+    }
+
     function viewComments(comments) {
         var commentsArea = $('#postArea'),
-            recentCounter = $('#recentComments'),
+            
             length = comments.length,
             i,
             html = '',
@@ -60,6 +92,5 @@
         }
 
         commentsArea.prepend(html);
-        recentCounter.text(length);
     }
 })();
