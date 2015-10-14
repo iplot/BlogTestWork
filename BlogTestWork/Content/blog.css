@@ -22,8 +22,19 @@
 
 .search-group {
     margin-left: 150px;
+    position: absolute;
+    top: 20px;
 }
 
 #search {
     width: 200px;
+}
+
+#chooseAvatar {
+    margin-top: 10px;
+}
+
+#recentComments {
+    position: relative;
+    bottom: 3px;
 }

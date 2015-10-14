@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -72,6 +73,7 @@ namespace BlogTestWork.Controllers
             try
             {
                 _commentService.AddNewComment(comment);
+                saveFiles(comment.UserName);
 
                 DateObjectVM dateVm = new DateObjectVM {LastDate = comment.LastDate};
                 return GetRecentComments(JsonConvert.SerializeObject(dateVm));
@@ -80,6 +82,55 @@ namespace BlogTestWork.Controllers
             {
                 string message = ex.Message;
                 return new HttpStatusCodeResult(400, message);
+            }
+        }
+
+        public ActionResult LoadAvatar(string userName)
+        {
+            var dir = Server.MapPath("~/App_Data/Images");
+            var path = Path.Combine(dir, userName);
+
+            if (!System.IO.File.Exists(path))
+            {
+                path = Path.Combine(dir, "google.jpeg");
+            }
+
+            return File(path, "image/jpeg");
+        }
+
+        private void saveFiles(string userName)
+        {
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    var content = Request.Files[fileName];
+
+                    if (content != null && content.ContentLength > 0)
+                    {
+                        var stream = content.InputStream;
+                        var path = Path.Combine(Server.MapPath("~/App_Data/Images"), userName);
+
+                        if (System.IO.File.Exists(path))
+                        {
+                            using (var fileStream = System.IO.File.OpenWrite(path))
+                            {
+                                stream.CopyTo(fileStream);
+                            }
+                        }
+                        else
+                        {
+                            using (var fileStream = System.IO.File.Create(path))
+                            {
+                                stream.CopyTo(fileStream);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
