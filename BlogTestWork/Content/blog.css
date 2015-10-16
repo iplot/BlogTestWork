@@ -59,3 +59,8 @@
     cursor: inherit;
     display: block;
 }
+
+#errorArea {
+    margin-top: 50px;
+    color: red;
+}

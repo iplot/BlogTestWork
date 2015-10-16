@@ -10,14 +10,21 @@
 
     function postNewComment() {
         var comment = {
-            'userName': $('#userName').val(),
-            'userDate': $('#date').val(),
-            'gender': $('#gender').val(),
-            'text': $('#text').val(),
-            'lastDate': lastDate
-        },
+                'userName': $('#userName').val(),
+                'userDate': $('#date').val(),
+                'gender': $('#gender').val(),
+                'text': $('#text').val(),
+                'lastDate': lastDate
+            },
             formData = new FormData(),
             chooseAvatar = $('#chooseAvatar')[0];
+
+        //Validation
+        $('#errorArea').empty();
+        if (!validator(viewErrors)) {
+            return;
+        }
+        //----------------
 
         formData.append('obj', JSON.stringify(comment));
 
@@ -38,7 +45,7 @@
                 viewRecentComments(data);
             },
             error: function(err) {
-                var a = err;
+                viewErrors(err.statusText);
             }
         });
     }
@@ -105,5 +112,17 @@
         }
 
         commentsArea.prepend(html);
+    }
+
+    function viewErrors(errors) {
+        var errorList = errors.split('.'),
+            i,
+            length = errorList.length,
+            errorArea = $('#errorArea');
+
+
+        for (i = 0; i < length; i++) {
+            errorArea.append('<p>' +errorList[i] + '</p>');
+        }
     }
 })();

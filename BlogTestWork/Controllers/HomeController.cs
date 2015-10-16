@@ -30,7 +30,7 @@ namespace BlogTestWork.Controllers
         }
 
         [HttpGet]
-        public ActionResult SearchComments(string search)
+        public ActionResult SearchComments(string search = "")
         {
             try
             {
@@ -47,10 +47,10 @@ namespace BlogTestWork.Controllers
         [HttpGet]
         public ActionResult GetRecentComments(string date)
         {
-            var lastDate = JsonConvert.DeserializeObject<DateObjectVM>(date);
-
             try
             {
+                var lastDate = JsonConvert.DeserializeObject<DateObjectVM>(date);
+
                 var returnData = _commentService.GetRecentComments(lastDate.LastDate);
 
                 return new ContentResult
@@ -69,9 +69,13 @@ namespace BlogTestWork.Controllers
         [HttpPost]
         public ActionResult AddComment(string obj)
         {
-            NewCommentVM comment = JsonConvert.DeserializeObject<NewCommentVM>(obj);
             try
             {
+                NewCommentVM comment = JsonConvert.DeserializeObject<NewCommentVM>(obj);
+
+                ModelState.Clear();
+                ValidateModel(comment);
+
                 _commentService.AddNewComment(comment);
                 saveFiles(comment.UserName);
 
@@ -80,7 +84,18 @@ namespace BlogTestWork.Controllers
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
+                string message = "";
+
+                if (ModelState.IsValid)
+                {
+                    message = ex.Message;
+                }
+                else
+                {
+                    message += string.Join(".",
+                    ModelState.Values.SelectMany(x => x.Errors, (x, err) => err.ErrorMessage));
+                }
+
                 return new HttpStatusCodeResult(400, message);
             }
         }
