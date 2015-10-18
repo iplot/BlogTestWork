@@ -45,13 +45,11 @@ namespace BlogTestWork.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetRecentComments(string date)
+        public ActionResult GetRecentComments(int? lastId)
         {
             try
             {
-                var lastDate = JsonConvert.DeserializeObject<DateObjectVM>(date);
-
-                var returnData = _commentService.GetRecentComments(lastDate.LastDate);
+                var returnData = _commentService.GetRecentComments(lastId);
 
                 return new ContentResult
                 {
@@ -67,20 +65,17 @@ namespace BlogTestWork.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddComment(string obj)
+        public ActionResult AddComment(NewCommentVM comment)
         {
             try
             {
-                NewCommentVM comment = JsonConvert.DeserializeObject<NewCommentVM>(obj);
-
                 ModelState.Clear();
                 ValidateModel(comment);
 
                 _commentService.AddNewComment(comment);
                 saveFiles(comment.UserName);
 
-                DateObjectVM dateVm = new DateObjectVM {LastDate = comment.LastDate};
-                return GetRecentComments(JsonConvert.SerializeObject(dateVm));
+                return GetRecentComments(comment.LastId);
             }
             catch (Exception ex)
             {

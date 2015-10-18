@@ -8,6 +8,6 @@ namespace BlogTestWork.Models.ViewModels
     public class RecentCommentsVM
     {
         public IEnumerable<CommentVM> Comments { get; set; }
-        public DateTime? LastDateTime { get; set; }
+        public int? LastId { get; set; }
     }
 }

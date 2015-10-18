@@ -1,5 +1,5 @@
 ﻿(function () {
-    var lastDate = null;
+    var lastId = null;
 
     $(document).ready(function() {
         $('#postBtn').on('click', postNewComment);
@@ -14,7 +14,7 @@
                 'userDate': $('#date').val(),
                 'gender': $('#gender').val(),
                 'text': $('#text').val(),
-                'lastDate': lastDate
+                'lastId': lastId
             },
             formData = new FormData(),
             chooseAvatar = $('#chooseAvatar')[0];
@@ -26,7 +26,9 @@
         }
         //----------------
 
-        formData.append('obj', JSON.stringify(comment));
+        for (var i in comment) {
+            formData.append(i, comment[i]);
+        }
 
         if (chooseAvatar.files && chooseAvatar.files[0]) {
             formData.append('file1', chooseAvatar.files[0]);
@@ -34,7 +36,6 @@
 
         $.ajax({
             url: '../Home/AddComment',
-//            data: { obj: JSON.stringify(comment) },
             data: formData,
             processData: false,
             contentType: false,
@@ -57,7 +58,7 @@
 
         if (search == '') {
             urlString = '../Home/GetRecentComments';
-            param = { date: JSON.stringify({ 'LastDate': lastDate }) };
+            param = { 'lastId': lastId };
         } else {
             urlString = '../Home/SearchComments';
             param = { 'search': search };
@@ -74,7 +75,7 @@
                 } else {
                     $('#postArea').empty();
                     viewComments(data);
-                    lastDate = null;
+                    lastId = null;
                 }
             }
         });
@@ -83,14 +84,15 @@
     function viewRecentComments(data) {
         var recentCounter = $('#recentComments');
 
-        if (lastDate === null) {
+        if (lastId === null) {
             $('#postArea').empty();
         }
 
         viewComments(data.Comments);
 
         recentCounter.text(data.Comments.length);
-        lastDate = new Date(data.LastDateTime);
+
+        lastId = data.LastId;
     }
 
     function viewComments(comments) {

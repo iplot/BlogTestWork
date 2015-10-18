@@ -38,7 +38,7 @@ namespace BlogTestWork.Models
             }
         }
 
-        public RecentCommentsVM GetRecentComments(DateTime? lastDate)
+        public RecentCommentsVM GetRecentComments(int? lastId)
         {
             try
             {
@@ -46,27 +46,27 @@ namespace BlogTestWork.Models
 
                 var comments = commentSet.OrderByDescending(x => x.Date);
 
-                var date = comments.Any() ? comments.Select(x => x.Date).First() : lastDate;
+                var id = comments.Any() ? comments.OrderByDescending(x => x.Id).Select(x => x.Id).First() : lastId;
 
-                if (lastDate == null)
+                if (lastId == null)
                 {
                     return new RecentCommentsVM
                     {
                         Comments = comments.Select(x =>
                             new CommentVM {Date = x.Date.ToString(), Text = x.Text, UserName = x.User.UserName})
                             .ToList(),
-                        LastDateTime = date
+                        LastId = id
                     };
                 }
                 else
                 {
                     return new RecentCommentsVM
                     {
-                        Comments = comments.Where(x => x.Date > lastDate)
+                        Comments = comments.Where(x => x.Id > lastId)
                             .Select(
                                 x => new CommentVM {Date = x.Date.ToString(), Text = x.Text, UserName = x.User.UserName})
                             .ToList(),
-                        LastDateTime = date
+                        LastId = id
                     };
                 }
             }

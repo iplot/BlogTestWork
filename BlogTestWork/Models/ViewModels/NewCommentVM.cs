@@ -22,9 +22,8 @@ namespace BlogTestWork.Models.ViewModels
         public Gender Gender { get; set; }
 
         [Required]
-//        [RegularExpression("[A-Za-z0-9]")]
         public string Text { get; set; }
 
-        public DateTime? LastDate { get; set; }
+        public int? LastId { get; set; }
     }
 }
